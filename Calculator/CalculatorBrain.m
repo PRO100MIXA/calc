@@ -34,14 +34,19 @@
     return [operandObkect doubleValue];
 }
 
-- (double)performOperation:(NSString *)operation
+-(double)performOperation:(NSString *)operation
 {
-    double result = 0; //возвращаемый результат булевый 
-    if ([operation isEqualToString:@"+"]) {
+    double result = 0; 
+    if ([operation isEqualToString:@"+"]) {  //тут понятно значение на кнопке передали с перевели в строку и стравнили
         result = [self popOperand] + [self popOperand];
+    } else if ([@"-" isEqualToString:operation]) {
+        result = [self popOperand] - [self popOperand];
     } else if ([@"*" isEqualToString:operation]) {
         result = [self popOperand] * [self popOperand];
+    } else if ([@"/" isEqualToString:operation]) {
+        result = [self popOperand] / [self popOperand];
     }
+    [self pushOperand:result];
     return result; //вернули результат 
 } 
 

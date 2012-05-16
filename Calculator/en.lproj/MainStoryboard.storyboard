@@ -246,7 +246,6 @@
                                 </state>
                                 <connections>
                                     <action selector="entetPressed" destination="2" eventType="touchUpInside" id="MtY-oR-miz"/>
-                                    <action selector="operationPressed:" destination="2" eventType="touchUpInside" id="CXD-pU-j3q"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -257,7 +256,7 @@
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="410" y="189"/>
+            <point key="canvasLocation" x="373" y="-68"/>
         </scene>
     </scenes>
     <classes>

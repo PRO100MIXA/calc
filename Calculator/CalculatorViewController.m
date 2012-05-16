@@ -50,8 +50,9 @@
 {
     if (self.checkNull) [self entetPressed]; 
     double result = [self.Brain performOperation:sender.currentTitle];
-    NSString *resultString = [NSString stringWithFormat:@"%", result];
-    self.display.text = resultString;
+    NSLog(@"%d", result);
+    NSString *resultStrng = [NSString stringWithFormat:@"%d", result];
+    self.display.text = resultStrng;
 }
   
 @end
