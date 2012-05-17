@@ -18,13 +18,13 @@
 
 -(NSMutableArray *)operandStack
 {
-    if (_operandStack == Nil) _operandStack = [[NSMutableArray alloc] init];
+    if (_operandStack == nil) _operandStack = [[NSMutableArray alloc] init];
     return _operandStack;
 }
 
 -(void)pushOperand:(double)operand
 {
-    [self.operandStack addObject:[NSNumber numberWithBool:operand]];
+    [self.operandStack addObject:[NSNumber numberWithDouble:operand]];
 }
 
 -(double)popOperand
@@ -35,16 +35,20 @@
 }
 
 -(double)performOperation:(NSString *)operation
-{
+{   
     double result = 0; 
     if ([operation isEqualToString:@"+"]) {  //тут понятно значение на кнопке передали с перевели в строку и стравнили
+        //NSLog(@"%f", result);
         result = [self popOperand] + [self popOperand];
-    } else if ([@"-" isEqualToString:operation]) {
-        result = [self popOperand] - [self popOperand];
+    } else if ([operation isEqualToString:@"-"]) {
+        //NSLog(@"%f", result);
+        result = - [self popOperand] + [self popOperand];
     } else if ([@"*" isEqualToString:operation]) {
+        //NSLog(@"%f", result);
         result = [self popOperand] * [self popOperand];
-    } else if ([@"/" isEqualToString:operation]) {
-        result = [self popOperand] / [self popOperand];
+    } else if ([operation isEqualToString:@"/"]) {
+        //NSLog(@"%f", result);
+        result = 1 / [self popOperand] * [self popOperand];
     }
     [self pushOperand:result];
     return result; //вернули результат 
