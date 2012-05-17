@@ -34,13 +34,13 @@
     NSString *digit =  sender.currentTitle; // переменной digit присвоили наименование отображаемое на кнопке
     if (self.checkNull) { //если нет в тектовом поле нуля как проверили пока не понял
         if ([self.display.text rangeOfString: @"."].length == 0) { //проверили нет ли точки в поле
-            if (digit == @".") { //проверяем что вводим а то число введем и не введется
+            if ([digit isEqualToString: @"."]) { //проверяем что вводим а то число введем и не введется
                 self.display.text = [self.display.text stringByAppendingString:digit];
             } else {
                 self.display.text = [self.display.text stringByAppendingString:digit];
             }
         } else {
-            if (digit == @".") {
+            if ([digit isEqualToString: @"."]) {
                 self.display.text = self.display.text;
             } else {
                 self.display.text = [self.display.text stringByAppendingString:digit]; //добавляем к текстовому полю наименование кнопки 
@@ -51,13 +51,19 @@
             //self.display.text = digit; //присваиваем текстовому полю значение нажатой кнопки
             //self.checkNull = YES; //больше не возвращаемся сюда (не проходим проверку)
         //} else {
-        if (digit == @".") {
+        
+        //начало непонятки
+        if ([digit isEqualToString: @"."]) {
             self.display.text = [self.display.text stringByAppendingString:digit];
             self.checkNull = YES;               
         } else {
             self.display.text = digit;
             self.checkNull = YES; 
         }
+        //конец непонятки
+        //если убираю проверку на введенную точку тоесть у нас получается "0." 
+        //то поведение неадекватное если так то все норм тока нет нуля в начале
+        
         //} 
        // else {
             //self.display.text = [self.display.text stringByAppendingString:digit];
