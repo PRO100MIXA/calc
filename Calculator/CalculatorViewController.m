@@ -33,34 +33,36 @@
 {
     NSString *digit =  sender.currentTitle; // переменной digit присвоили наименование отображаемое на кнопке
     if (self.checkNull) { //если нет в тектовом поле нуля как проверили пока не понял
-        if ([self.display.text rangeOfString: @"."].length == 0) {
-            if (digit == @".") {
-            self.display.text = [self.display.text stringByAppendingString:digit];
+        if ([self.display.text rangeOfString: @"."].length == 0) { //проверили нет ли точки в поле
+            if (digit == @".") { //проверяем что вводим а то число введем и не введется
+                self.display.text = [self.display.text stringByAppendingString:digit];
             } else {
-            self.display.text = self.display.text;
+                self.display.text = [self.display.text stringByAppendingString:digit];
+            }
+        } else {
+            if (digit == @".") {
+                self.display.text = self.display.text;
+            } else {
+                self.display.text = [self.display.text stringByAppendingString:digit]; //добавляем к текстовому полю наименование кнопки 
             }
         }
-        else {
-            self.display.text = [self.display.text stringByAppendingString:digit]; //добавляем к текстовому полю наименование кнопки
-        }
-        
     } else { //если он есть, а он есть при начале работы
-        if ([self.display.text rangeOfString: @"."].length == 0) {
+    ////if ([self.display.text rangeOfString: @"."].length == 0) {
             //self.display.text = digit; //присваиваем текстовому полю значение нажатой кнопки
             //self.checkNull = YES; //больше не возвращаемся сюда (не проходим проверку)
         //} else {
-            if (digit == @".") {
-                self.display.text = [self.display.text stringByAppendingString:digit];
-                self.checkNull = YES;               
-            } else {
-                self.display.text = digit;
-                self.checkNull = YES; 
-            }
-            
+        if (digit == @".") {
+            self.display.text = [self.display.text stringByAppendingString:digit];
+            self.checkNull = YES;               
+        } else {
+            self.display.text = digit;
+            self.checkNull = YES; 
         }
- 
-    }
-        
+        //} 
+       // else {
+            //self.display.text = [self.display.text stringByAppendingString:digit];
+        //}
+    }        
     
 }
 - (IBAction)entetPressed //по нажатию на ввод
