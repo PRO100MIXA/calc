@@ -19,8 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		6C2E18E015558DFD0002BAA2 /* CalculatorBrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CalculatorBrain.h; path = Calculator/CalculatorBrain.h; sourceTree = "<group>"; };
-		6C2E18E115558DFD0002BAA2 /* CalculatorBrain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CalculatorBrain.m; path = Calculator/CalculatorBrain.m; sourceTree = "<group>"; };
+		6C2E18E015558DFD0002BAA2 /* CalculatorBrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculatorBrain.h; sourceTree = "<group>"; };
+		6C2E18E115558DFD0002BAA2 /* CalculatorBrain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalculatorBrain.m; sourceTree = "<group>"; };
 		6CCC9BED155568C10047EAC2 /* Calculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Calculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CCC9BF1155568C10047EAC2 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		6CCC9BF3155568C10047EAC2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -53,8 +53,6 @@
 		6CCC9BE2155568C00047EAC2 = {
 			isa = PBXGroup;
 			children = (
-				6C2E18E015558DFD0002BAA2 /* CalculatorBrain.h */,
-				6C2E18E115558DFD0002BAA2 /* CalculatorBrain.m */,
 				6CCC9BF7155568C10047EAC2 /* Calculator */,
 				6CCC9BF0155568C10047EAC2 /* Frameworks */,
 				6CCC9BEE155568C10047EAC2 /* Products */,
@@ -82,6 +80,8 @@
 		6CCC9BF7155568C10047EAC2 /* Calculator */ = {
 			isa = PBXGroup;
 			children = (
+				6C2E18E015558DFD0002BAA2 /* CalculatorBrain.h */,
+				6C2E18E115558DFD0002BAA2 /* CalculatorBrain.m */,
 				6CCC9C00155568C10047EAC2 /* CalculatorAppDelegate.h */,
 				6CCC9C01155568C10047EAC2 /* CalculatorAppDelegate.m */,
 				6CCC9C03155568C10047EAC2 /* MainStoryboard.storyboard */,

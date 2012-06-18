@@ -9,49 +9,85 @@
 #import "CalculatorBrain.h"
 
 @interface CalculatorBrain()
-@property (nonatomic, strong) NSMutableArray *operandStack; //массив динамичный вроде
+@property (nonatomic, strong) NSMutableArray *programStack; 
 @end
 
 
 @implementation CalculatorBrain
-@synthesize operandStack = _operandStack;
+@synthesize programStack = _programStack;
 
--(NSMutableArray *)operandStack
+-(NSMutableArray *)programStack
 {
-    if (_operandStack == nil) _operandStack = [[NSMutableArray alloc] init];
-    return _operandStack;
+    if (_programStack == nil) _programStack = [[NSMutableArray alloc] init];
+    return _programStack;
 }
 
 -(void)pushOperand:(double)operand
 {
-    [self.operandStack addObject:[NSNumber numberWithDouble:operand]];
+    [self.programStack addObject:[NSNumber numberWithDouble:operand]];
 }
 
--(double)popOperand
-{
-    NSNumber *operandObkect = [self.operandStack lastObject];
-    if (operandObkect) [self.operandStack removeLastObject];
-    return [operandObkect doubleValue];
-}
 
 -(double)performOperation:(NSString *)operation
 {   
-    double result = 0; 
-    if ([operation isEqualToString:@"+"]) {  //тут понятно значение на кнопке передали с перевели в строку и стравнили
-        //NSLog(@"%f", result);
-        result = [self popOperand] + [self popOperand];
-    } else if ([operation isEqualToString:@"-"]) {
-        //NSLog(@"%f", result);
-        result = - [self popOperand] + [self popOperand];
-    } else if ([@"*" isEqualToString:operation]) {
-        //NSLog(@"%f", result);
-        result = [self popOperand] * [self popOperand];
-    } else if ([operation isEqualToString:@"/"]) {
-        //NSLog(@"%f", result);
-        result = 1 / [self popOperand] * [self popOperand];
+    [self.programStack addObject:operation];
+    return [CalculatorBrain runProgram:self.program];
+}
+-(id)program
+{
+    return [self.programStack copy];
+}
+
++ (NSString *)descriptionOfProgram:(id)program
+{
+    return @"Implement this Assigmeent 2";
+}
+
++ (double)popOperandOffStack:(NSMutableArray *)stack
+{
+    double result = 0;
+    
+    id topOfStack = [stack lastObject];
+    if (topOfStack) [stack removeLastObject];
+    if ([topOfStack isKindOfClass:[NSNumber class]]) {
+        result = [topOfStack doubleValue];
     }
-    [self pushOperand:result];
-    return result; //вернули результат 
-} 
+    else if ([topOfStack isKindOfClass:[NSString class]]) {
+        NSString *operation = topOfStack;
+        if ([operation isEqualToString:@"+"]) { 
+            result = [self popOperandOffStack:stack] + [self popOperandOffStack:stack];
+        } else if ([operation isEqualToString:@"-"]) {
+            result = - [self popOperandOffStack:stack] + [self popOperandOffStack:stack];
+        } else if ([@"*" isEqualToString:operation]) {
+            result = [self popOperandOffStack:stack] * [self popOperandOffStack:stack];
+        } else if ([operation isEqualToString:@"/"]) {
+            double tempValue = [self popOperandOffStack:stack];
+            if (tempValue) {
+                result = [self popOperandOffStack:stack] / tempValue;
+            } else {
+                result = [self popOperandOffStack:stack];
+            }
+        } else if ([operation isEqualToString:@"sin"]) {
+            result = sin([self popOperandOffStack:stack]);
+        }else if ([operation isEqualToString:@"cos"]) {
+            result = cos([self popOperandOffStack:stack]);
+        }else if ([operation isEqualToString:@"sqrt"]) {
+            result = sqrt([self popOperandOffStack:stack]);
+        }else if ([operation isEqualToString:@"π"]) {
+            result = 3.14159265359;
+        }   
+    }
+    return result;
+}
+
++ (double)runProgram:(id)program
+{
+    NSMutableArray *stack;
+    if ([program isKindOfClass:[NSArray class]]) {
+        stack = [program mutableCopy];
+    }
+    return [self popOperandOffStack:stack];
+}
+
 
 @end
