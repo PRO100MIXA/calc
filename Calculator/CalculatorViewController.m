@@ -28,72 +28,85 @@
 }
 
 - (IBAction)digitPressed:(UIButton *)sender
-{   //введенные значения... рядом повставлять тоже самое ссылающееся на другое текстовое поле только
-    //когда ноль надо ноль вперед добавить, еще проверку на "пи" не забыть
+{  
     NSString *digit =  sender.currentTitle;
-    if (self.checkNull) { //если пусто или ноля на форме нет
-        if ([self.display.text rangeOfString: @"."].length == 0) {  //проверили нет ли точки в поле
-            self.display.text = [self.display.text stringByAppendingString:digit];  // нету смело добавляем значение
-            self.incertButtons.text = [self.incertButtons.text stringByAppendingString:digit];
-        } else {    //есть точка в строке
-            if ([digit isEqualToString: @"."]) {    //если вводим точку
-                self.display.text = self.display.text;  //ничего не делаем
-                self.incertButtons.text = self.incertButtons.text;  //думаю что вообще не нужны эти 2 строки
-            } else { // вводим не точку
-                self.display.text = [self.display.text stringByAppendingString:digit];  //добавляем значение
+        if (self.checkNull) { 
+            if ([self.display.text rangeOfString: @"."].length == 0) { 
+                self.display.text = [self.display.text stringByAppendingString:digit];
                 self.incertButtons.text = [self.incertButtons.text stringByAppendingString:digit];
+            } else {   
+                if ([digit isEqualToString: @"."]) { 
+                    self.display.text = self.display.text; 
+                    self.incertButtons.text = self.incertButtons.text; 
+                } else { 
+                    self.display.text = [self.display.text stringByAppendingString:digit];  
+                    self.incertButtons.text = [self.incertButtons.text stringByAppendingString:digit];
+                }
+            }
+        } else {
+            if ([digit isEqualToString: @"."]) {
+                self.display.text = @"0";
+                self.display.text = [self.display.text stringByAppendingString:digit];
+                self.incertButtons.text = [[self.incertButtons.text stringByAppendingString:@"0"] stringByAppendingString:digit];
+                self.checkNull = YES;       
+            } else {  
+                self.display.text = digit; 
+                self.incertButtons.text = [self.incertButtons.text stringByAppendingString:digit];
+                self.checkNull = YES;  
             }
         }
-    } else { //если он есть (ноль), а он есть при начале работы
-        if ([digit isEqualToString: @"."]) {//если воодим точку
-            self.display.text = @"0";
-            self.display.text = [self.display.text stringByAppendingString:digit];  //добавляем точку
-            self.incertButtons.text = [[self.incertButtons.text stringByAppendingString:@"0"] stringByAppendingString:digit];
-            self.checkNull = YES;     //и больше не попадаем в эту проверку        
-        } else {    //вводим значение не точку
-            self.display.text = digit;  // заменяем ноль
-            self.incertButtons.text = [self.incertButtons.text stringByAppendingString:digit];
-            self.checkNull = YES;   //больше не входим в эту проверку
-        }
-    }  
     self.incertButtons.text = [self.incertButtons.text stringByReplacingOccurrencesOfString:@"=" withString:@""];
 }
-- (IBAction)clearButton:(id)sender {
-    self.incertButtons.text = @""; //  введенные значение пустая строка может можно nil
-    self.display.text = @"0";   //поле с введенными значениями вернем ноль
-    self.checkNull = NO;    //так же вернем в исходное положение
-    self.brain = nil; //не знаю но помогло все стереть
+
+- (IBAction)backSpace:(id)sender {
+    NSUInteger len;
+    self.display.text = self.display.text;
+    len = [self.display.text length];
+    NSLog(@"%d", len);
+    if (len == 1) {
+        //NSLog(@"%d", len);
+        [self clearButton];
+    } else {
+        self.display.text = [self.display.text substringToIndex:len-1];
+        self.checkNull = YES; 
+        len = [self.incertButtons.text length];
+        //NSLog(@"%d", len);
+        if ([self.incertButtons.text rangeOfString: @"="].length == 0){
+            self.incertButtons.text = [self.incertButtons.text substringToIndex:len-1];
+        }
+    }
 }
 
-- (IBAction)backSpaseButton:(id)sender {
-//пока не знаю надо subsStringWithrange 
-
+- (IBAction)clearButton {
+    self.incertButtons.text = @""; 
+    self.display.text = @"0"; 
+    self.checkNull = NO;   
+    self.brain = nil;
 }
 
-- (IBAction)entetPressed 
-{
-    [self.brain pushOperand:[self.display.text doubleValue]]; //в массив добавляем то что введено на экране
+- (IBAction)plusOrMinus:(id)sender {
+    self.display.text = [NSString stringWithFormat:@"%g", [self.display.text doubleValue]*(-1)];
+}
+
+- (IBAction)entetPressed {
+    [self.brain pushOperand:[self.display.text doubleValue]];
     if (self.checkNull) {
         self.incertButtons.text = [self.incertButtons.text stringByAppendingString:@" "]; 
     } else {
         self.incertButtons.text = [[self.incertButtons.text stringByAppendingString:self.display.text] stringByAppendingString:@" "]; 
     }
-      
-    //пробел к введенным значениям добавляем вместо ентера
     //self.display.text = @"0";
     self.checkNull = NO;    
 }
-- (IBAction)operationPressed:(UIButton *)sender 
-{
+- (IBAction)operationPressed:(UIButton *)sender {
     if (self.checkNull == YES) [self entetPressed]; 
-    double result = [self.brain performOperation:sender.currentTitle]; //передаем к вычислениям и проверкам надпись на кнопке
+    double result = [self.brain performOperation:sender.currentTitle]; 
     //NSLog(@"%f", result);
-    NSString *resultString = [NSString stringWithFormat:@"%g", result]; //получаем из результата строку
+    NSString *resultString = [NSString stringWithFormat:@"%g", result]; 
     //NSLog(@"%a", resultStrng);
     self.incertButtons.text = [self.incertButtons.text stringByReplacingOccurrencesOfString:@"=" withString:@""];
-    self.display.text = resultString; //на экран результат вывели
+    self.display.text = resultString; 
     self.incertButtons.text = [[[self.incertButtons.text stringByAppendingString:sender.currentTitle] stringByAppendingString:@" "] stringByAppendingString:@"="];    
-    //результаты не подходят поэтому просто к введенным значениям добавляем надпись и пробел после нее чтобы визуально разделить все
 }
   
 - (void)viewDidUnload {
