@@ -245,6 +245,7 @@
                                 </state>
                                 <connections>
                                     <action selector="clearButton" destination="2" eventType="touchUpInside" id="sYX-28-dmV"/>
+                                    <action selector="clearPressed" destination="2" eventType="touchUpInside" id="DxM-qJ-7mX"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="L3S-Mg-0Xx">
@@ -274,7 +275,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="backSpace:" destination="2" eventType="touchUpInside" id="eEp-Yr-bLh"/>
+                                    <action selector="backSpacePressed" destination="2" eventType="touchUpInside" id="xrl-1A-WhF"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" id="NIG-Hk-Hih">
@@ -349,7 +350,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="entetPressed" destination="2" eventType="touchUpInside" id="7ab-Ng-NqU"/>
+                                    <action selector="enterPressed" destination="2" eventType="touchUpInside" id="Ovx-ov-xHl"/>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="AO0-9d-V2C">
@@ -371,7 +372,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="plusOrMinus:" destination="2" eventType="touchUpInside" id="mzx-go-jXe"/>
+                                    <action selector="operationChangeOfSignPressed" destination="2" eventType="touchUpInside" id="GlR-8V-hZ0"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -379,22 +380,13 @@
                     </view>
                     <connections>
                         <outlet property="display" destination="igW-xN-rzm" id="nIJ-eu-5Gu"/>
-                        <outlet property="incertButtons" destination="AO0-9d-V2C" id="U1T-do-VTA"/>
+                        <outlet property="history" destination="AO0-9d-V2C" id="D6M-5K-PtY"/>
                     </connections>
                 </viewController>
             </objects>
-            <point key="canvasLocation" x="-48" y="38"/>
+            <point key="canvasLocation" x="-580" y="15"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="CalculatorViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CalculatorViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="display" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="incertButtons" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

@@ -9,7 +9,14 @@
 #import <UIKit/UIKit.h>
 
 @interface CalculatorViewController : UIViewController
-@property (weak, nonatomic) IBOutlet UILabel *incertButtons;
-
+@property (weak, nonatomic) IBOutlet UILabel *history;
 @property (weak, nonatomic) IBOutlet UILabel *display;
+@property (nonatomic) NSString *historyInMemory;
+@property (nonatomic) NSString *displayInMemory;
+
+- (IBAction)backSpacePressed;
+- (IBAction)clearPressed;
+- (IBAction)operationChangeOfSignPressed;
+- (IBAction)enterPressed;
+
 @end
